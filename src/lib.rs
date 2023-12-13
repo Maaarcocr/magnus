@@ -1846,6 +1846,7 @@ mod time;
 pub mod try_convert;
 pub mod typed_data;
 pub mod value;
+pub mod typed_value;
 
 use std::{ffi::CString, mem::transmute, os::raw::c_int};
 

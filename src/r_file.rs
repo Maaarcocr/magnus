@@ -1,6 +1,6 @@
 use std::{fmt, ptr::NonNull};
 
-use rb_sys::ruby_value_type;
+use rb_sys::{ruby_value_type, VALUE};
 
 use crate::{
     error::Error,
@@ -46,6 +46,11 @@ impl RFile {
             (val.rb_type() == ruby_value_type::RUBY_T_FILE)
                 .then(|| Self(NonZeroValue::new_unchecked(val)))
         }
+    }
+
+    #[inline]
+    pub(crate) unsafe fn from_rb_value_unchecked(val: VALUE) -> Self {
+        Self(NonZeroValue::new_unchecked(Value::new(val)))
     }
 
     fn as_internal(self) -> NonNull<rb_sys::RFile> {

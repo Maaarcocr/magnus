@@ -87,7 +87,7 @@ impl RRegexp {
     }
 
     #[inline]
-    unsafe fn from_rb_value_unchecked(val: VALUE) -> Self {
+    pub(crate) unsafe fn from_rb_value_unchecked(val: VALUE) -> Self {
         Self(NonZeroValue::new_unchecked(Value::new(val)))
     }
 

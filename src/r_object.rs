@@ -1,6 +1,6 @@
 use std::fmt;
 
-use rb_sys::ruby_value_type;
+use rb_sys::{ruby_value_type, VALUE};
 
 use crate::{
     error::Error,
@@ -46,6 +46,11 @@ impl RObject {
             (val.rb_type() == ruby_value_type::RUBY_T_OBJECT)
                 .then(|| Self(NonZeroValue::new_unchecked(val)))
         }
+    }
+
+    #[inline]
+    pub(crate) unsafe fn from_rb_value_unchecked(val: VALUE) -> Self {
+        Self(NonZeroValue::new_unchecked(Value::new(val)))
     }
 }
 

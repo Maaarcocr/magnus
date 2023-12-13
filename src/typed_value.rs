@@ -1,7 +1,7 @@
 //! Types for working with Ruby's VALUE type, but they are more strongly typed.
 
 use crate::{
-    value::{qfalse, qnil, qtrue, ReprValue},
+    value::{private::ReprValue as _, qfalse, qnil, qtrue, ReprValue},
     Enumerator, Float, Integer, RArray, RClass, RComplex, RFile, RHash, RMatch, RModule, RObject,
     RRational, RRegexp, RString, RStruct, RTypedData, Range, Symbol, Value,
 };
@@ -128,7 +128,8 @@ impl TypedValue {
         }
     }
 
-    fn as_value(&self) -> Value {
+    /// Converts a `TypedValue` into a `Value`.
+    pub fn as_value(&self) -> Value {
         match self {
             Self::Integer(i) => i.as_value(),
             Self::Float(f) => f.as_value(),
